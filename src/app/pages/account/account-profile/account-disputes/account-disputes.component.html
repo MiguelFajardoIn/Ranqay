@@ -1,0 +1,163 @@
+<!--=====================================
+Nav Account
+======================================--> 
+
+<div class="ps-section__content">
+
+     <ul class="ps-section__links">
+        <li><a href="/account">My Wishlist</a></li>
+        <li><a href="/account/my-shopping">My Shopping</a></li>
+        <li><a href="/account/my-store">My Store</a></li>
+        <li><a href="account/my-sales">My Sales</a></li>
+    </ul>
+
+    <div class="table-responsive mt-4">
+    	
+    	<table class="table ps-table--whishlist dt-responsive" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" width="100%">
+    		
+    		<thead>
+
+	            <tr>   
+
+	            	<th>Dispute Id</th> 
+
+	            	<th>Order Id</th>        
+
+	            	<th>Date dispute</th>
+
+	                <th>Transmitter</th>
+
+	                <th>Receiver</th>
+
+	                <th>Message</th>
+
+	                <th>Date Answer</th>
+
+	                <th>Answer</th>
+
+	            </tr>
+
+	        </thead>
+
+	        <tbody>
+
+	            <tr
+	            *ngIf="disputes.length == 0">
+	            
+	                <td colspan="8" class="text-center">You haven't disputes!</td>    
+	            </tr>
+
+	            <tr
+            	*ngFor="let dispute of disputes; let i = index"
+            	>
+
+            		<td>
+            			
+            			{{idDisputes[i]}}
+            			 <div 
+            			 class="text-center" 
+            			 *ngIf="dispute.answer == null">
+            			 	<button type="button" class="btn btn-danger mt-2" (click)="answerDispute(idDisputes[i])">Answer dispute</button>
+            			 </div>
+
+
+            		</td>
+
+            		<td>
+	            		{{dispute.order}}
+	            	</td>
+
+	            	<td>
+	            		{{dispute.date_dispute | date}}
+	            	</td>
+
+	            	<td>
+		            	{{dispute.transmitter}}
+		            </td>
+
+		            <td>
+	            		{{dispute.receiver}}
+	            	</td>
+
+	            	<td>
+	            		{{dispute.message}}
+	            	</td>
+
+	            	<td>
+	            		{{dispute.date_answer | date}}
+	            	</td>
+
+	            	<td>
+		            	{{dispute.answer}}
+		            </td>
+
+            	</tr>
+
+	         </tbody>
+
+    	</table>
+
+    </div>
+
+      <!--=====================================
+    Modal para las disputas
+    ======================================--> 
+
+    <!-- The Modal -->
+    <div class="modal" id="answerDispute">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <form
+                (ngSubmit)="onSubmit(f)"
+                #f="ngForm">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Answer Dispute</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div class="form-group">
+
+                            <label>Type your message</label>
+
+                            <div class="form-group__content">
+                                
+                                <textarea 
+                                class="form-control" 
+                                type="text"
+                                name="answer"
+                                [(ngModel)]="dispute.answer"
+                                required></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-warning btn-lg">Send</button>
+                        </div>
+                       
+                    </div>
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
